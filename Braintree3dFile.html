@@ -1,0 +1,217 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://js.braintreegateway.com/web/dropin/1.10.0/js/dropin.min.js"></script>
+    <!-- Load the Client component. -->
+    <script src="https://js.braintreegateway.com/web/3.32.0/js/client.min.js"></script>
+    <!-- Load the 3D Secure component. -->
+    <script src="https://js.braintreegateway.com/web/3.32.0/js/three-d-secure.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+	
+    <style>
+        button#submit-button {
+            border-radius: 0px;
+            height: 35px;
+            font-size: 14px;
+            line-height: 18px;
+            margin-right: 0;
+            color: #fff;
+            font-family: "Lato", sans-serif !important;
+            background-color: #ff9401 !important;
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: -7px;
+            border: 1px solid #FF9401 !important;
+            color: #ffffff;
+        }
+
+        button#submit-button:hover {
+            color: #ffffff;
+            background-color: #FF9401 !important;
+        }
+
+        /* Loader */
+
+        /* Center the loader */
+
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #016683;
+            width: 100px;
+            height: 100px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {alert("adsf");
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Add animation to "page content" */
+
+        .animate-bottom {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s
+        }
+
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+
+        .loader-main {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            z-index: 999;
+            overflow: hidden !important;
+            left: 0;
+            righ<script src=" jquery-2.1.1.js="" scripts="" type="text/javascript"></script>
+            t: 0;
+            background: rgba(158, 158, 158, 0.7);
+        }
+
+        /* LOADER */
+    </style>
+</head>
+
+<body>
+    <form id="dropinForm" action='./Success.html' method="post">
+		<div id="dropin-container"></div>
+		<button id="submit-button" type="submit">Submit</button>
+		<input id="nonce" type="hidden" name="payment_method_nonce">
+	</form>
+	<div id="loader_main" class="loader-main">
+	<div id="loader"></div>
+	</div>
+    <script>
+document.getElementById("loader_main").style.display = "none";
+var button = document.querySelector('#submit-button');
+var form = document.querySelector('#dropinForm');
+braintree.dropin.create({
+    authorization: 'eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJiMmQ4OWEyYjUxMjZlZTYxMGVhZjIxNjUwZjk4OGMyZWQ1MjYwMjFlMGRiNWFiZGViMjRiYWUzMjhjNGY0MGU2fGNyZWF0ZWRfYXQ9MjAxOC0wNC0yNVQxMDowMDoxMC4yOTI1MzIzODArMDAwMFx1MDAyNm1lcmNoYW50X2FjY291bnRfaWQ9YmRiaXp2aXpfSU5SXHUwMDI2bWVyY2hhbnRfaWQ9NjI1ZmZjZHBueGhiNWNoMlx1MDAyNnB1YmxpY19rZXk9cGs5NmRndm0ycmM2YnFraCIsImNvbmZpZ1VybCI6Imh0dHBzOi8vYXBpLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb206NDQzL21lcmNoYW50cy82MjVmZmNkcG54aGI1Y2gyL2NsaWVudF9hcGkvdjEvY29uZmlndXJhdGlvbiIsImNoYWxsZW5nZXMiOlsiY3Z2Il0sImVudmlyb25tZW50Ijoic2FuZGJveCIsImNsaWVudEFwaVVybCI6Imh0dHBzOi8vYXBpLnNhbmRib3guYnJhaW50cmVlZ2F0ZXdheS5jb206NDQzL21lcmNoYW50cy82MjVmZmNkcG54aGI1Y2gyL2NsaWVudF9hcGkiLCJhc3NldHNVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbSIsImF1dGhVcmwiOiJodHRwczovL2F1dGgudmVubW8uc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbSIsImFuYWx5dGljcyI6eyJ1cmwiOiJodHRwczovL2NsaWVudC1hbmFseXRpY3Muc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbS82MjVmZmNkcG54aGI1Y2gyIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInBheXBhbEVuYWJsZWQiOmZhbHNlLCJtZXJjaGFudElkIjoiNjI1ZmZjZHBueGhiNWNoMiIsInZlbm1vIjoib2ZmIiwibWVyY2hhbnRBY2NvdW50SWQiOiJiZGJpenZpel9JTlIifQ==',
+    container: '#dropin-container',
+    threeDSecure: {
+        amount: '4500',
+      }
+}, function (createErr, instance) {
+    if(createErr){
+  alert('Error');
+    } else {
+   button.addEventListener('click', function (event) {
+         event.preventDefault();
+         document.getElementById("loader_main").style.display = "block";
+         instance.requestPaymentMethod(function (err, payload) {
+          if(err){
+           alert("Error");
+          } else if (payload){
+           if(payload.liabilityShifted || payload.type !== 'CreditCard'){
+              // Submit payload.nonce to your server
+             document.querySelector("#nonce").value = payload.nonce                  
+             document.getElementById("loader_main").style.display = "none";
+             localStorage.setItem('payVal', payload.nonce);
+             var btn = document.getElementById('submit-button');
+             btn.style.display = 'none';
+             var spn = document.getElementsByClassName('braintree-toggle')["0"];
+             spn.style.display = 'none';
+             var data = {
+            		serviceName: 'test',
+            		consumerName: 'YUJAA_SERVICES',
+            		isSecure: 'true',
+             		data:JSON.stringify({
+             			"payment_method_nonce": payload.nonce,
+                		"planType": "Basic",
+                		"spacekey": "1111",
+                		"userId": "32768",
+                		"action": "create",
+                		"autoRenew": "false",
+                		"fullName": "Sandeep",
+                		"emailId": "sandeep.kumar@bdbizviz.com",
+                		"invoiceData": {
+                			"reportsUser": 1,
+                			"totalDays": 90,
+                			"planTime": "90 Day",
+                			"dashboardsUser": 0,
+                			"totalPriceForAnalytics": 0,
+                			"totalPriceForDashboards": 0,
+                			"finalPrice": 4500,
+                			"totalPriceForReports": 4500,
+                			"analyticsUser": 0,
+                			"currencyCode": "INR"
+                		}
+             		}),
+             		spacekey: '1111',
+             		userid: '32768',
+             		token: '3be2f46f975c1891b3c75a1b963468171111'
+            	};
+              $.ajax({
+                 url: "http://192.168.0.35:8182/cxf/bizviz/pluginService",
+                 crossDomain : true, 
+                 headers: {
+	        	        "userid": "32768",
+	        	        "authtoken":"3be2f46f975c1891b3c75a1b963468171111",
+	        	        "spacekey": "1111"
+	        	    },
+                 type: "POST",
+                 data: data,
+                 success: function (response) {
+                    alert(response);
+                    form.submit();
+	             }
+	         }); 
+           } else {
+            dropinInstance.clearSelectedPaymentMethod();
+           }
+          }
+         });
+     });
+}
+});
+</script>
+</body>
+
+</html>
