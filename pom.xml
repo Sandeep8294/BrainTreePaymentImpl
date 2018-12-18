@@ -16,6 +16,25 @@
         </configuration>
       </plugin>
       <plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Export-Package>
+							com.braintreegateway.*,
+							com.mysql.jdbc.*,
+						</Export-Package>
+						<Import-Package>
+							org.apache.log4j*,
+						</Import-Package>
+						<Embed-Dependency>braintree-java;scope=compile|runtime</Embed-Dependency>
+					</instructions>
+					<Include-Resource>/braintree.properties</Include-Resource>
+				</configuration>
+			</plugin>   
+      <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.4</version>
         <configuration>
